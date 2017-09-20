@@ -7,8 +7,8 @@
 - [x] copy from a vector
 - [x] assignment
 - [x] destructor
-- [ ] Set the coordinates
-- [ ] Get the dimension
-- [ ] Print the vector like (x,y,...)
+- [x] Set the coordinates
+- [x] Get the dimension
+- [x] Print the vector like (x,y,...)
 - [ ] Operations
 - [ ] Test program
