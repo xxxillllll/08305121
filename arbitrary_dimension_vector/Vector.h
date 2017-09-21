@@ -19,8 +19,8 @@ public:
     double Norm();                                             // length
     //  etc...
 private:
-    int n;     // dimension
-    double* x; // coordinates
+    int dimension;     // dimension
+    double* member; // coordinates
 };
 
 #endif // VECTOR_H
