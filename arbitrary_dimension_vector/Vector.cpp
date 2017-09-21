@@ -10,7 +10,7 @@ Vector::Vector(int dimension)
         member = NULL;
         return;
     }
-    member = new double[dimension];
+    member = new double[this->dimension = dimension];
     for (int i = 0; i < dimension; i++)
         member[i] = 0;
 }
@@ -45,26 +45,41 @@ Vector::~Vector()
     if (member != NULL) delete[] member;
 }
 
-void Vector::Set()
-{
-    for (int i = 0; i < dimension; i++)
-        cin >> member[i];
-}
-
 int Vector::GetDim() const
 {
     return dimension;
 }
 
-ostream& operator<<(ostream& out, Vector& vec)
+bool operator==(const Vector& A, const Vector& B)
+{
+    int n = min(A.dimension, B.dimension);
+    for (int i = 0; i < n; i++)
+        if (A.member[i] != B.member[i]) return false;
+    for (int i = n; i < A.dimension; i++)
+        if (A.member[i] != 0) return false;
+    for (int i = n; i < B.dimension; i++)
+        if (B.member[i] != 0) return false;
+    return true;
+}
+
+istream& operator>>(istream& is, const Vector& vec)
 {
     int n = vec.dimension;
-    if (n == 0) return out;
-    out << "(" << vec.member[0];
+    if (n == 0) return is;
+    for (int i = 0; i < n; i++)
+        is >> vec.member[i];
+    return is;
+}
+
+ostream& operator<<(ostream& os, const Vector& vec)
+{
+    int n = vec.dimension;
+    if (n == 0) return os;
+    os << "(" << vec.member[0];
     for (int i = 1; i < n; i++)
-        out << ", " << vec.member[i];
-    out << ")";
-    return out;
+        os << ", " << vec.member[i];
+    os << ")";
+    return os;
 }
 
 Vector operator+(const Vector& A, const Vector& B)
@@ -82,15 +97,12 @@ Vector operator+(const Vector& A, const Vector& B)
 Vector operator^(const Vector& A, const Vector& B)
 {
     Vector inner_A(3), inner_B(3); // default all 0 vector
-    if(A.dimension > 3 || B.dimension > 3){
+    if (A.dimension > 3 || B.dimension > 3)
         throw("any vector with a 3+ dimension can not do cross product!");
-    }
-    for(int i = 0; i < A.dimension; i++){
-        inner_A.member[i] = A.dimension[i];
-    }
-    for(int i = 0; i < B.dimension; i++){
+    for (int i = 0; i < A.dimension; i++)
+        inner_A.member[i] = A.member[i];
+    for (int i = 0; i < B.dimension; i++)
         inner_B.member[i] = B.member[i];
-    }
 
     // math formula
     // a = (X1,Y1,Z1),b=(X2,Y2,Z2),
@@ -108,8 +120,24 @@ double operator*(const Vector& A, const Vector& B)
     int n = min(A.dimension, B.dimension);
     double result = 0;
     for (int i = 0; i < n; i++)
-    {
         result += (A.member[i] * B.member[i]);
-    }
+    return result;
+}
+
+Vector operator*(const double& m, const Vector& A)
+{
+    int n = A.dimension;
+    Vector result(n);
+    for (int i = 0; i < n; i++)
+        result.member[i] = m * A.member[i];
+    return result;
+}
+
+Vector Vector::operator*(const double& m)
+{
+    int n = this->dimension;
+    Vector result(n);
+    for (int i = 0; i < n; i++)
+        result.member[i] = m * this->member[i];
     return result;
 }
