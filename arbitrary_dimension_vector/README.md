@@ -10,11 +10,11 @@
 - [x] Set the coordinates
 - [x] Get the dimension
 - [x] Print the vector like (x,y,...)
-- [ ] Operations
+- [x] Operations
     - [x] `=`
+    - [x] `==`
     - [x] `<<`,`>>`
     - [x] `+`,`-`
     - [x] `*`,`^`
-    - [ ] `+=`,`-=`,`*=`,`^=`
-    - [ ] `==`
+    - [x] `+=`,`-=`,`*=`,`^=`
 - [ ] Test program

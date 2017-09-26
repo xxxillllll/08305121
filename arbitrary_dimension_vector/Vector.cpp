@@ -94,6 +94,18 @@ Vector operator+(const Vector& A, const Vector& B)
     return result;
 }
 
+Vector operator-(const Vector& A, const Vector& B)
+{
+    int n = max(A.dimension, B.dimension);
+    Vector result(n);
+    for (int i = 0; i < n; i++)
+    {
+        if (i < A.dimension) result.member[i] += A.member[i];
+        if (i < B.dimension) result.member[i] -= B.member[i];
+    }
+    return result;
+}
+
 Vector operator^(const Vector& A, const Vector& B)
 {
     Vector inner_A(3), inner_B(3); // default all 0 vector
@@ -140,4 +152,37 @@ Vector Vector::operator*(const double& m)
     for (int i = 0; i < n; i++)
         result.member[i] = m * this->member[i];
     return result;
+}
+
+Vector& Vector::operator+=(const Vector& rhs)
+{
+    *this = *this + rhs;
+    return *this;
+}
+
+Vector& Vector::operator-=(const Vector& rhs)
+{
+    *this = *this - rhs;
+    return *this;
+}
+
+Vector& Vector::operator^=(const Vector& rhs)
+{
+    *this = *this ^ rhs;
+    return *this;
+}
+
+Vector& Vector::operator*=(const double& m)
+{
+    *this = *this * m;
+    return *this;
+}
+
+double Vector::Norm() const
+{
+    double ret = 0;
+    int n = this->dimension;
+    for (int i = 0; i < n; i++)
+        ret += (this->member[i] * this->member[i]);
+    return ret;
 }

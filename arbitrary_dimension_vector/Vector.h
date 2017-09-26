@@ -23,7 +23,7 @@ public:
     Vector& operator-=(const Vector& rhs);                      // subtraction and assignment
     Vector& operator^=(const Vector& rhs);                      // cross product and assignment
     Vector& operator*=(const double& m);                        // scalar multiplication and assignment
-    double Norm();                                              // length
+    double Norm() const;                                        // length
     //  etc...
 private:
     int dimension;  // dimension
